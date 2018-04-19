@@ -1,8 +1,12 @@
 import Phaser from 'phaser';
 
+import SimpleText from '../Objects/SimpleText';
+
 export default class extends Phaser.Scene {
   constructor () {
     super();
+
+    this.simpleText = null;
   }
 
   init () {
@@ -10,12 +14,17 @@ export default class extends Phaser.Scene {
   }
 
   create () {
-    console.log('create');
-    const text = new Phaser.GameObjects.Text(this, 50, 50, 'test', {
-      backgroundColor: '#f0f',
+    this.simpleText = new SimpleText({
+      scene: this,
+      x: 60,
+      y: 70,
+      text: 'Simple text',
+      styles: {
+        backgroundColor: '#f0f',
+      },
     });
 
-    Phaser.GameObjects.BuildGameObject(this, text, null);
+    this.add.existing(this.simpleText);
   }
 
   preload () {
@@ -23,9 +32,6 @@ export default class extends Phaser.Scene {
   }
 
   update(time, delta) {
-  }
-
-  render () {
-    console.log('render');
+    this.simpleText.update(time, delta);
   }
 }
